@@ -1,0 +1,58 @@
+API
+
+API significa Application Programming Interface (Interface de Programação de Aplicação).
+
+REST
+
+Rest = Conjunto de regras/Padrões - é um estilo arquitetônico aplicado para fornecer padrões entre sistemas de computador na web, facilitando a comunicação entre eles.
+
+Restful = Implementação de todas as regras do padrão Rest
+
+HTTP
+
+Http - Url - Json = fazem parte do padrão Rest
+
+Http = "Protocolo de Transferência de Hipertexto".
+
+URL
+
+Url = Uma URL é, basicamente, o endereço virtual de uma página ou website. A sigla tem origem na língua inglesa e significa "Uniform Resource Locator" 
+(Localizador Uniforme de Recursos, em tradução livre).
+
+JSON
+
+Json = O formato JSON (JavaScript Object Notation) é um formato aberto usado como alternativa ao XML para a transferência de dados estruturados entre um servidor de Web 
+e uma aplicação Web.
+
+
+MÉTODOS DE REQUISIÇÃO
+(CRUD)
+
+get = obter - Listar();
+
+post = enviar dados - Login(email,senha);
+
+put = atualizar
+
+delete = deletar
+
+
+DOMAINS 
+
+Domains= Definição da classe/Propriedades
+
+CONTROLLERS
+
+Controllers = Métodos construtores/Autenticação/Autorização
+
+INTERFACES 
+
+Interfaces = Definição dos métodos obrigatórios/Contrato
+
+REPOSITORIES 
+
+Repositories = Implementação dos métodos/Regras de negócio
+
+
+
+

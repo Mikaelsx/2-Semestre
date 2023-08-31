@@ -1,0 +1,184 @@
+/
+-- CRIAR BANCO DE DADOS
+CREATE DATABASE CLINIC
+
+-- USAR BANCO
+USE CLINIC
+
+-- CRIAR TABELAS
+
+-- TIPOS DE USUARIO
+-- DDL
+CREATE TABLE TiposDeUsuario
+(
+	IdTiposUsuario INT PRIMARY KEY IDENTITY,
+	TituloTipoUsuario VARCHAR(50)
+)
+-- DML
+INSERT INTO TiposDeUsuario (TituloTipoUsuario) VALUES ('Administrador'), ('Médico'), ('Paciente')
+
+-- COMENTARIO
+-- DDL
+CREATE TABLE Comentario
+(
+	IdComentario INT PRIMARY KEY IDENTITY,
+	Feedback VARCHAR(300)
+)
+-- DML
+INSERT INTO Comentario (Feedback) VALUES ('Adorei a consulta, o médico foi super prestativo e atencioso atendendo o meu filho. E o melhor ele saiu alegre e saudavel.')
+
+-- ESPECIALIDADE
+-- DDL
+
+CREATE TABLE Especialidade
+(
+	IdEspecialidade INT PRIMARY KEY IDENTITY,
+	TituloEspecialidade VARCHAR(50)
+)
+-- DML
+INSERT INTO Especialidade(TituloEspecialidade)	VALUES ('Pediatra')
+
+-- CLINICA
+-- DDL
+CREATE TABLE Clinica
+(
+	IdClinica INT PRIMARY KEY IDENTITY,
+	Endereco VARCHAR(80),
+	CNPJ CHAR(14),
+	Horario VARCHAR(30),
+	NomeFantasia VARCHAR(30),
+	RazaoSocial VARCHAR(200)
+)
+-- DML
+INSERT INTO Clinica (Endereco,CNPJ,Horario,NomeFantasia,RazaoSocial) VALUES ('Rua Niteroi 180, São Caetano do Sul','64581258','08:00 A 21:00','QualityClinic','Nós estamos cada vez mais inseridos na sociedade para prestar serviços de qualidade com a maior rapides possivel para o povo de modo geral ')
+
+-- USUARIO
+-- DDL
+
+CREATE TABLE Usuario
+(
+	IdUsuario INT PRIMARY KEY IDENTITY,
+	Email VARCHAR(50),
+	Senha CHAR(14),
+	Nome VARCHAR(30)
+)
+-- DML
+INSERT INTO Usuario (Email,Senha,Nome) VALUES ('Mikaelsouza@gmail.com','35496128','Mikael.S')
+--INSERT INTO Usuario (Email,Senha,Nome) VALUES ('Nicolas@gmail.com','354654128','Nicolas.S')
+
+-- PACIENTE
+-- DDL
+
+CREATE TABLE Paciente
+(
+	IdPaciente INT PRIMARY KEY IDENTITY,
+	IdUsuario INT FOREIGN KEY REFERENCES Usuario(IdUsuario),
+	CPF CHAR(14)
+)
+-- DML
+INSERT INTO Paciente(IdUsuario,CPF) VALUES (1,'658503523695')
+
+--Update Paciente set IdUsuario = 2 where IdPaciente = 1
+
+-- MEDICO
+-- DDL
+
+CREATE TABLE  Medico
+(
+	IdMedico INT PRIMARY KEY IDENTITY,
+	IdUsuario INT FOREIGN KEY REFERENCES Usuario(IdUsuario),
+	IdEspecialidade INT FOREIGN KEY REFERENCES Especialidade(IdEspecialidade),
+	IdClinica INT FOREIGN KEY REFERENCES Clinica(IdClinica),
+	CRM VARCHAR(14)
+)
+--DML
+INSERT INTO Medico (IdUsuario,IdEspecialidade,IdClinica,CRM) VALUES (1,1,1,'5412867423')
+
+-- CONSULTA
+-- DDL 
+
+CREATE TABLE Consulta
+(
+	IdConsulta INT PRIMARY KEY IDENTITY,
+	IdMedico INT FOREIGN KEY REFERENCES Medico(IdMedico),
+	IdComentario INT FOREIGN KEY REFERENCES Comentario(IdComentario),
+	IdPaciente INT FOREIGN KEY REFERENCES Paciente(IdPaciente),
+	Descricao VARCHAR(50)
+)
+
+ALTER TABLE Consulta
+ADD DataConsulta date, Horario Time 
+
+
+-- DML
+INSERT INTO Consulta (IdMedico,IdComentario,IdPaciente,Descricao) VALUES (1,1,1,'Consulta de rotina.')
+
+INSERT INTO Consulta (IdMedico,IdComentario,IdPaciente,Descricao,DataConsulta,Horario) VALUES (1,1,1,'Radiografia','23/07/2023','15:00')
+*/
+
+-- REALIZAR AS CONSULTAS
+-- DQL
+
+-- TIPOS DE USUARIO
+select * from TiposDeUsuario
+
+-- COMENTARIO
+select * from Comentario
+
+-- ESPECIALIDADE
+select * from Especialidade
+
+-- CLINICA
+select * from Clinica
+
+-- USUARIO
+select * from Usuario
+
+-- PACIENTE
+select * from Paciente
+
+-- MEDICO
+select * from Medico
+
+-- CONSULTA
+select * from Consulta
+
+
+
+--INNER JOIN
+SELECT 
+
+-- Id Consulta
+	Consulta.IdConsulta,
+
+-- Data da Consulta
+	Consulta.DataConsulta AS [Data],
+
+-- Horario da Consulta
+	Consulta.Horario,
+
+-- Nome da Clinica
+	CONCAT (Clinica.NomeFantasia, ' - ' ,Clinica.Endereco) AS Endereço,
+
+-- Nome do Medico
+	MedicoNome.Nome,
+
+-- Especialidade do Medico
+	Especialidade.TituloEspecialidade,
+
+-- CRM
+	Medico.CRM,
+
+-- Prontuário ou Descricao
+	Consulta.Descricao,
+
+-- FeedBack(Comentario da consulta)
+	Comentario.Feedback
+
+FROM Consulta
+
+inner join Medico on Consulta.IdMedico = Medico.IdMedico
+inner join Usuario MedicoNome on Medico.IdUsuario = MedicoNome.IdUsuario
+inner join Clinica on Clinica.IdClinica = Medico.IdClinica
+inner join Especialidade on Medico.IdEspecialidade = Especialidade.IdEspecialidade
+left join Comentario on Consulta.IdComentario = Comentario.IdCo
