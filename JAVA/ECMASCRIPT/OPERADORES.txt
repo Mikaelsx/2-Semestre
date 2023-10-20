@@ -1,0 +1,34 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+OPERADORES
+
+= ATRIBUIÇÃO
+== RELACIONAL
+=== IDENTICO
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+RESTO
+
+// RESTO - SERVE PARA REPRESENTAR UMA VARIÁVEL QUE NÃO PODE SER IMPLEMENTADA
+
+// ---------------------------------------------------------------------   RESPOSTA SEM O RESTO ( SEM IMPLEMENTAÇÃO DOS OBJETOS PRESENÇA / COMENTÁRIO )
+// 2023-10-19T18:25:12.046Z
+// VOCÊ ESTÁ CONVIDADO!
+// FESTA
+
+// ---------------------------------------------------------------------   RESPOSTA COM O RESTO
+// 2023-10-19T18:25:12.046Z
+// VOCÊ ESTÁ CONVIDADO!
+// FESTA
+// { presenca: true, comentario: 'GOSTEI DO EVENTO' }
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROMISE
+
+pendente : estado inicial, nem cumprido nem rejeitado.
+cumprida : significa que a operação foi concluída com sucesso.
+rejeitado : significa que a operação falhou.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// PARA RODAR
+// node nomedoarquivo.js

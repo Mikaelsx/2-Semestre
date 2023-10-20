@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Cep</title>
+</head>
+<body>
+    <form id="aa">
+        <label for="cep">CEP</label>
+        <input
+          type="number"
+          placeholder="Digite o cep"
+          id="cep"
+          onblur="chamarApi()"
+          autocomplete="off"
+        />
+        <span id="not-found"></span>
+        <br /><br />
+  
+        <label for="endereco">Endereço</label>
+        <input type="text" placeholder=" ... " id="endereco" />
+        <br /><br />
+  
+        <label for="bairro">Bairro</label>
+        <input type="text" placeholder=" ... " id="bairro" />
+        <br /><br />
+  
+        <label for="cidade">Cidade</label>
+        <input type="text" placeholder=" ... " id="cidade" />
+        <br /><br />
+  
+        <label for="estado">Estado</label>
+        <input type="text" placeholder=" ... " id="estado" />
+        <br /><br />
+      </form>
+    <!-- <button onclick="chamarApi()">Chamar api</button> -->
+
+    <style>
+        #aa {
+            /* display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 300px; */
+
+            margin-left: 830px;
+            margin-top: 300px;
+        }
+    </style>
+
+    <script>
+        async function chamarApi() {
+            const cep = document.getElementById("cep").value;
+            const url = `https://viacep.com.br/ws/${cep}/json/`
+
+            try { // RESOLVIDA OU FULLFILED
+            const promise = await fetch(url);
+            const endereco = await promise.json();
+
+            exibirEndereco(endereco);
+
+            document.getElementById("not-found").innerText = "";
+
+            console.log(endereco);
+
+            } catch (erro) { // REJEITADA
+                console.log("Erro na api");
+                
+                document.getElementById("not-found").innerText = "Cep Inválido";
+            }
+        }
+
+        function exibirEndereco (endereco) {
+            document.getElementById("bairro").value = endereco.bairro;
+            document.getElementById("endereco").value = endereco.logradouro;
+            document.getElementById("cidade").value = endereco.localidade;
+            document.getElementById("estado").value = endereco.uf;
+        }
+
+        // GET
+        // const retorno = fetch("https://viacep.com.br/ws/09510-200/json/")
+        // .then( (retorno) => {
+        //     console.log("Funcionando normalmente");
+        // }) // Resolvida
+        // .catch( (erro) => {
+        //     console.log("Erro na api");
+        // }) // Rejeitada
+    </script>
+    
+</body>
+</html>
